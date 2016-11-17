@@ -40,5 +40,7 @@ crontab.load('', filePath, (err, crons) => {
 
     /* Save changes to file */
     crons.save();
+
+    success('Your crons have been setup!');
 });
 

@@ -29,8 +29,7 @@ let success = (message) => {
  * Based on userId + cron string
  */
 let getUniqueId = (userId, jobString) => {
-    let randomDigits = Math.random().toString(36).slice(2, 6);
-    let combination = userId + jobString + randomDigits;
+    let combination = userId + jobString;
     let uniqueId = md5(combination).slice(0, 4);
     return uniqueId;
 };

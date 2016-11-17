@@ -35,6 +35,11 @@ let getUniqueId = (userId, jobString) => {
     return uniqueId;
 };
 
+/* Remove curl url from command */
+let stripMonitoring = (userId, job) => {
+
+};
+
 /* Attach curl url to command */
 let attachMonitoring = (userId, job) => {
     let uniqueId = getUniqueId(userId, job.toString());
@@ -48,10 +53,14 @@ let attachMonitoring = (userId, job) => {
     return job.command(command);
 };
 
+/* Upload to API */
+let upload = (userId, jobs) => {};
+
 module.exports = {
     fileExists,
     error,
     success,
-    attachMonitoring
+    attachMonitoring,
+    upload
 };
 

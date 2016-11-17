@@ -2,7 +2,7 @@
 
 const crontab = require('crontab');
 const argv = require('yargs-parser')(process.argv.slice(2));
-const {fileExists, error, success, attachMonitoring} = require('./helpers');
+const {fileExists, error, success, attachMonitoring, upload} = require('./helpers');
 
 /* Is file passed as argument? */
 let filePath = argv._[0] || '';
@@ -30,8 +30,15 @@ crontab.load('', filePath, (err, crons) => {
     if (!jobs.length) error('No jobs found');
     else success(`Found ${jobs.length} jobs`);
 
-    for (let job of jobs) attachMonitoring(userId, job);
+    /* Attach monitoring */
+    for (let job of jobs) {
+        attachMonitoring(userId, job);
+    }
+
+    /* Upload jobs to API */
+    upload(userId, jobs);
+
+    /* Save changes to file */
     crons.save();
 });
-
 

@@ -30,7 +30,7 @@ let success = (message) => {
  */
 let getUniqueId = (userId, jobString) => {
     let combination = userId + jobString;
-    let uniqueId = md5(combination).slice(0, 4);
+    let uniqueId = md5(combination).slice(0, 6);
     return uniqueId;
 };
 

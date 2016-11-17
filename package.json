@@ -6,7 +6,8 @@
   "bin": "lib/index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "git checkout cronfile && cat cronfile && npm start cronfile && cat cronfile"
+    "reset-test": "git checkout cronfile",
+    "test": "npm run reset-test && cat cronfile && npm start cronfile && cat cronfile && npm run reset-test"
   },
   "repository": {
     "type": "git",

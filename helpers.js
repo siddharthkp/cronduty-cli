@@ -36,17 +36,32 @@ let getUniqueId = (userId, jobString) => {
 };
 
 /* Remove curl url from command */
-let stripMonitoring = (userId, job) => {
+let stripMonitoring = (job) => {
+    let command = job.command();
 
+    let re = /curl(.*?)\|\| /g;
+    let matches = command.match(re);
+    if (!matches) return command;
+    command = command.replace(matches[0], '');
+
+    re = / && curl(.*?)done\/..../g;
+    matches = command.match(re);
+    command = command.replace(matches[0], '');
+
+    return command;
 };
 
 /* Attach curl url to command */
 let attachMonitoring = (userId, job) => {
+
+    /* Clean */
+    let strippedCommand = stripMonitoring(job);
+
     let uniqueId = getUniqueId(userId, job.toString());
 
     let command = `curl ${baseUrl}/start/${uniqueId}`;
     command += ` || `;
-    command += job.command();
+    command += strippedCommand;
     command += ` && `;
     command += `curl ${baseUrl}/done/${uniqueId}`;
 

@@ -1,0 +1,7 @@
+# this is a comment bro
+
+# here's a cron
+@hourly echo 'file'
+
+# here's another one
+30 * * * * echo no way

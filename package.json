@@ -1,0 +1,42 @@
+{
+  "name": "cronduty",
+  "version": "0.0.1",
+  "description": "cron monitoring with minimal configuration",
+  "main": "src/index.js",
+  "bin": "lib/index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "git checkout cronfile && cat cronfile && npm start cronfile && cat cronfile"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siddharthkp/cronduty-cli.git"
+  },
+  "files": [],
+  "engines": {
+    "node": ">=4.0.0",
+    "npm": ">3.0.0"
+  },
+  "keywords": [
+    "cronduty",
+    "cron",
+    "monitoring"
+  ],
+  "author": "siddharthkp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/siddharthkp/cronduty-cli/issues"
+  },
+  "homepage": "https://github.com/siddharthkp/cronduty-cli#readme",
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "xo": "^0.17.1"
+  },
+  "dependencies": {
+    "blueimp-md5": "2.5.0",
+    "colors": "^1.1.2",
+    "crontab": "github:siddharthkp/node-crontab",
+    "later": "^1.2.0",
+    "yargs-parser": "^4.0.2"
+  }
+}

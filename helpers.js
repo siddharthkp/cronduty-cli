@@ -39,11 +39,16 @@ let getUniqueHash = (userId, jobString) => {
 let stripMonitoring = (job) => {
     let command = job.command();
 
+    /* Match text between curl and || */
     let re = /curl(.*?)\|\| /g;
     let matches = command.match(re);
     if (!matches) return command;
     command = command.replace(matches[0], '');
 
+    /*
+     * Match text between '&& curl' and 'done/......'
+     * each . stands for a charachter
+     */
     re = / && curl(.*?)done\/....../g;
     matches = command.match(re);
     command = command.replace(matches[0], '');

@@ -8,6 +8,7 @@ const baseUrl = 'https://cronduty.com';
 let fileExists = (path) => {
     try {
         let stat = fs.statSync(path);
+        return true;
     } catch (e) {
         error(`${path} does not exist`);
     }
@@ -43,7 +44,7 @@ let stripMonitoring = (job) => {
     if (!matches) return command;
     command = command.replace(matches[0], '');
 
-    re = / && curl(.*?)done\/..../g;
+    re = / && curl(.*?)done\/....../g;
     matches = command.match(re);
     command = command.replace(matches[0], '');
 
@@ -56,7 +57,7 @@ let attachMonitoring = (userId, job) => {
     /* Clean */
     let strippedCommand = stripMonitoring(job);
 
-    let uniqueId = getUniqueId(userId, job.toString());
+    let uniqueId = getUniqueId(userId, strippedCommand);
 
     let command = `curl ${baseUrl}/start/${uniqueId}`;
     command += ` || `;

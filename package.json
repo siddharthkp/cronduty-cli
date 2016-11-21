@@ -6,11 +6,7 @@
   "bin": "lib/index.js",
   "scripts": {
     "start": "node index.js",
-    "reset-test": "git checkout test/cronfile",
-    "test:reset": "git checkout test/cronfile",
-    "test:cat": "cat test/cronfile",
-    "test:start": "npm start test/cronfile",
-    "test": "run-s test:reset test:cat test:start test:cat test:reset"
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -33,12 +29,13 @@
   },
   "homepage": "https://github.com/siddharthkp/cronduty-cli#readme",
   "devDependencies": {
+    "ava": "^0.17.0",
     "npm-run-all": "^3.1.1"
   },
   "dependencies": {
     "blueimp-md5": "2.5.0",
-    "colors": "^1.1.2",
+    "colors": "1.1.2",
     "crontab": "github:siddharthkp/node-crontab",
-    "yargs-parser": "^4.0.2"
+    "yargs-parser": "4.0.2"
   }
 }

@@ -7,17 +7,17 @@ const baseUrl = 'https://cronduty.com';
 /* Check if cron file exists */
 let fileExists = (path) => {
     try {
-        let stat = fs.statSync(path);
+        fs.statSync(path);
         return true;
     } catch (e) {
-        error(`${path} does not exist`);
+        return error(`${path} does not exist`);
     }
 };
 
 /* Pretty error message + exit */
 let error = (message) => {
     console.log(`\n${red(message)}\n`);
-    process.exit(1);
+    return process.exit(1);
 };
 
 /* Pretty success message */

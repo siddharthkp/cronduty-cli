@@ -2,12 +2,25 @@ const test = require('ava');
 const crontab = require('crontab');
 const {fileExists, attachMonitoring, upload} = require('../helpers');
 
+/* Overwriting functions to make them testable */
+test.before(t => {
+    process.exit = (code) => {
+        return code; // Don't exit, return exit code instead
+    };
+    console.log = (message) => {
+        return message; // Instead of logging
+    };
+});
+
 test('fileExists +', t => {
     let exists = fileExists('package.json');
     t.true(exists);
 });
 
-test.todo('fileExists -');
+test('fileExists -', t => {
+    let exitCode = fileExists('fake-file');
+    t.is(exitCode, 1);
+});
 
 test.cb('attach monitoring - fresh', t => {
     let userId = 1;
@@ -32,7 +45,6 @@ test.cb('attach monitoring - update', t => {
     });
 
 });
-
 
 test.todo('upload');
 

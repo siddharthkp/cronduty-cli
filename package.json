@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "nyc ava"
+    "test": "nyc ava",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   "homepage": "https://github.com/siddharthkp/cronduty-cli#readme",
   "devDependencies": {
     "ava": "^0.17.0",
+    "coveralls": "^2.11.15",
     "npm-run-all": "^3.1.1",
     "nyc": "^9.0.1"
   },

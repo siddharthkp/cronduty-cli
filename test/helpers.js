@@ -1,6 +1,6 @@
 const test = require('ava');
 const crontab = require('crontab');
-const {fileExists, attachMonitoring, upload} = require('../helpers');
+const {fileExists, success, attachMonitoring, upload} = require('../helpers');
 
 /* Overwriting functions to make them testable */
 test.before(t => {
@@ -22,6 +22,11 @@ test('fileExists -', t => {
     t.is(exitCode, 1);
 });
 
+test('success message', t => {
+    let message = success('Happy message');
+    t.is(message, '\n\u001b[32mHappy message\u001b[39m\n');
+});
+
 test.cb('attach monitoring - fresh', t => {
     let userId = 1;
 
@@ -31,7 +36,6 @@ test.cb('attach monitoring - fresh', t => {
         t.deepEqual(result, 'curl https://cronduty.com/start/29effd || ls && curl https://cronduty.com/done/29effd');
         t.end();
     });
-
 });
 
 test.cb('attach monitoring - update', t => {

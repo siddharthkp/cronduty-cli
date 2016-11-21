@@ -22,7 +22,7 @@ let error = (message) => {
 
 /* Pretty success message */
 let success = (message) => {
-    console.log(`\n${green(message)}\n`);
+    return console.log(`\n${green(message)}\n`);
 };
 
 /* Generate an unique hash for each job

@@ -25,14 +25,14 @@ let success = (message) => {
     console.log(`\n${green(message)}\n`);
 };
 
-/* Generate an unique id for each job
+/* Generate an unique hash for each job
  *
  * Based on userId + cron string
  */
-let getUniqueId = (userId, jobString) => {
+let getUniqueHash = (userId, jobString) => {
     let combination = userId + jobString;
-    let uniqueId = md5(combination).slice(0, 6);
-    return uniqueId;
+    let uniqueHash = md5(combination).slice(0, 6);
+    return uniqueHash;
 };
 
 /* Remove curl url from command */
@@ -57,13 +57,13 @@ let attachMonitoring = (userId, job) => {
     /* Clean */
     let strippedCommand = stripMonitoring(job);
 
-    let uniqueId = getUniqueId(userId, strippedCommand);
+    let uniqueHash = getUniqueHash(userId, strippedCommand);
 
-    let command = `curl ${baseUrl}/start/${uniqueId}`;
+    let command = `curl ${baseUrl}/start/${uniqueHash}`;
     command += ` || `;
     command += strippedCommand;
     command += ` && `;
-    command += `curl ${baseUrl}/done/${uniqueId}`;
+    command += `curl ${baseUrl}/done/${uniqueHash}`;
 
     return job.command(command);
 };

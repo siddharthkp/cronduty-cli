@@ -2,8 +2,7 @@
   "name": "cronduty",
   "version": "0.0.1",
   "description": "cron monitoring with minimal configuration",
-  "main": "src/index.js",
-  "bin": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "nyc ava"

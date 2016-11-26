@@ -12,9 +12,12 @@ let filePath = argv._[0] || '';
 if (filePath) fileExists(filePath);
 
 /* Register user - get back id */
-askUserInfo()
+/*askUserInfo()
 .then(info => register(info))
 .then(userId => setupJobs(userId));
+*/
+
+
 
 /* Setup jobs
  *
@@ -38,13 +41,15 @@ let setupJobs = (userId) => {
             attachMonitoring(userId, job);
         }
 
-        /* Upload jobs to API */
-        upload(userId, jobs);
+        /*
+         * Upload jobs to API
+         * and save changes to file
+         */
+        upload(userId, jobs)
+        .then(() => crons.save(() => success('Your crons have been setup!')));
 
-        /* Save changes to file */
-        crons.save();
-
-        success('Your crons have been setup!');
     });
 };
+
+setupJobs(1); //Remove this
 

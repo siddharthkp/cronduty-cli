@@ -2,7 +2,8 @@
 
 const crontab = require('crontab');
 const argv = require('yargs-parser')(process.argv.slice(2));
-const {fileExists, error, success, attachMonitoring, upload} = require('./helpers');
+const {fileExists, error, success, attachMonitoring, askUserInfo} = require('./helpers');
+const {register, upload} = require('./api');
 
 /* Is file passed as argument? */
 let filePath = argv._[0] || '';
@@ -11,7 +12,9 @@ let filePath = argv._[0] || '';
 if (filePath) fileExists(filePath);
 
 /* Register user - get back id */
-let userId = 1;
+askUserInfo()
+.then(info => register(info))
+.then(userId => setupJobs(userId));
 
 /* Setup jobs
  *
@@ -21,26 +24,27 @@ let userId = 1;
  * Save to cron file
  *
  */
+let setupJobs = (userId) => {
+    crontab.load('', filePath, (err, crons) => {
+        if (err) error('Could not parse cron file');
 
-crontab.load('', filePath, (err, crons) => {
-    if (err) error('Could not parse cron file');
+        let jobs = crons.jobs();
 
-    let jobs = crons.jobs();
+        if (!jobs.length) error('No jobs found');
+        else success(`Found ${jobs.length} jobs`);
 
-    if (!jobs.length) error('No jobs found');
-    else success(`Found ${jobs.length} jobs`);
+        /* Attach monitoring */
+        for (let job of jobs) {
+            attachMonitoring(userId, job);
+        }
 
-    /* Attach monitoring */
-    for (let job of jobs) {
-        attachMonitoring(userId, job);
-    }
+        /* Upload jobs to API */
+        upload(userId, jobs);
 
-    /* Upload jobs to API */
-    upload(userId, jobs);
+        /* Save changes to file */
+        crons.save();
 
-    /* Save changes to file */
-    crons.save();
-
-    success('Your crons have been setup!');
-});
+        success('Your crons have been setup!');
+    });
+};
 

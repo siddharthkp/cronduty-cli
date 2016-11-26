@@ -34,9 +34,12 @@
     "nyc": "^9.0.1"
   },
   "dependencies": {
+    "axios": "0.15.2",
     "blueimp-md5": "2.5.0",
     "colors": "1.1.2",
     "crontab": "github:siddharthkp/node-crontab",
+    "email-validator": "1.0.7",
+    "inquirer": "1.2.3",
     "yargs-parser": "4.0.2"
   }
 }

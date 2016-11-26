@@ -1,6 +1,8 @@
 const fs = require('fs');
 const {red, green} = require('colors');
 const md5 = require('blueimp-md5');
+const inquirer = require('inquirer');
+const isEmail = require('email-validator').validate;
 
 const baseUrl = 'https://cronduty.com';
 
@@ -73,6 +75,22 @@ let attachMonitoring = (userId, job) => {
     return job.command(command);
 };
 
+/* Get email and pagerduty key from user */
+let askUserInfo = () => {
+    let questions = [{
+        type: 'input',
+        name: 'email',
+        message: 'What\'s your email address?',
+        validate: (value) => isEmail(value) ? true : 'Oops! Please enter a valid email address'
+    },{
+        type: 'input',
+        name: 'pagerduty',
+        message: 'And your pager duty key:',
+        validate: (value) => value ? true : 'Oops, Please enter your pagerduty key'
+    }];
+    return inquirer.prompt(questions);
+};
+
 /* Upload to API */
 let upload = (userId, jobs) => {};
 
@@ -81,6 +99,7 @@ module.exports = {
     error,
     success,
     attachMonitoring,
+    askUserInfo,
     upload
 };
 

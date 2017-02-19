@@ -15,3 +15,17 @@ cron monitoring with minimal configuration
 ### Usage
 
 `cron`
+
+cronduty will wrap your commands with tracking commands and add them to the cronduty API.
+
+&nbsp;
+
+```
+30 * * * * sh /usr/ubuntu/backup.sh
+```
+
+becomes
+
+```
+30 * * * * curl https://cronduty.com/start/29effd || sh /usr/ubuntu/backup.sh && curl https://cronduty.com/done/29effd
+```
